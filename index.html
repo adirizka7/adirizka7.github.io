@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Input Form</title>
+    <!-- Include jQuery first -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Then include Fomantic-UI CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.8/dist/semantic.min.css">
+</head>
+<body>
+    <div class="ui container" style="height: 100vh; display: flex; justify-content: center; align-items: center;">
+        <div class="ui segment" style="max-width: 400px; width: 100%;">
+            <h2 class="ui header center aligned">Enter a Link</h2>
+            <form class="ui form" onsubmit="handleSubmit(event)">
+                <div class="field">
+                    <label for="linkInput">Link:</label>
+                    <input type="text" id="linkInput" name="link" placeholder="Enter your link here" required>
+                </div>
+                <button class="ui primary button" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        async function handleSubmit(event) {
+            event.preventDefault(); // Prevent the default form submission
+            const link = document.getElementById('linkInput').value;
+
+            try {
+                // Call the endpoint using fetch
+                const response = await fetch('https://maps.app.goo.gl/q29aHFgLM25Fpdai7?g_st=ic', {
+                    method: 'GET',
+                });
+
+                console.log(JSON.stringify(response))
+
+                // Check if the response is OK (status 200-299)
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                // Parse the response as JSON
+                const data = await response.json();
+
+                // Log the response to the console
+                console.log(data);
+            } catch (error) {
+                console.error('There was a problem with the fetch operation:', error);
+            }
+        }
+    </script>
+
+    <!-- Finally include Fomantic-UI JS -->
+    <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.8/dist/semantic.min.js"></script>
+</body>
+</html>
