@@ -11,14 +11,14 @@
 </head>
 <body>
     <div class="ui container" style="height: 100vh; display: flex; justify-content: center; align-items: center;">
-        <div class="ui segment" style="max-width: 400px; width: 100%;">
-            <h2 class="ui header center aligned">Enter a Link</h2>
+        <div class="ui segment" style="max-width: 650px; width: 100%;">
+            <h2 class="ui header center aligned">GPXify <br> Turning Google Maps Link into a GPX File 🪄 🗺️</h2>
             <form class="ui form" onsubmit="handleSubmit(event)">
                 <div class="field">
-                    <label for="linkInput">Link:</label>
-                    <input type="text" id="linkInput" name="link" placeholder="Enter your link here" required>
+                    <label for="linkInput">GMaps Link:</label>
+                    <input type="text" id="linkInput" name="link" placeholder="https://maps.app.goo.gl/xxx" required>
                 </div>
-                <button class="ui primary button" type="submit">Submit</button>
+                <button class="ui primary button" type="submit">Convert</button>
             </form>
         </div>
     </div>
