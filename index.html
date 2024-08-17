@@ -29,23 +29,38 @@
             const link = document.getElementById('linkInput').value;
 
             try {
-                // Call the endpoint using fetch
-                const response = await fetch('https://maps.app.goo.gl/q29aHFgLM25Fpdai7?g_st=ic', {
-                    method: 'GET',
-                });
+                const urlEncoded = new URLSearchParams();
+                urlEncoded.append("url", link);
 
-                console.log(JSON.stringify(response))
+                // Call the endpoint using fetch
+                const response = await fetch('https://1wo3wvas51.execute-api.ap-southeast-1.amazonaws.com/production/convert', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: urlEncoded
+                });
 
                 // Check if the response is OK (status 200-299)
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
 
-                // Parse the response as JSON
-                const data = await response.json();
+                // Parse the response as Blob
+                const blob = await response.blob();
 
-                // Log the response to the console
-                console.log(data);
+                let file = new Blob([blob], {type: 'application/gpx+xml'});
+                let fileURL = URL.createObjectURL(file);
+
+                // create <a> element dynamically
+                let fileLink = document.createElement('a');
+                fileLink.href = fileURL;
+
+                // suggest a name for the downloaded file
+                fileLink.download = 'from-there-to-here.gpx';
+
+                // simulate click
+                fileLink.click();
             } catch (error) {
                 console.error('There was a problem with the fetch operation:', error);
             }
