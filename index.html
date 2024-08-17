@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.svg"/>
     <title>Link Input Form</title>
     <!-- Include jQuery first -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -62,7 +63,7 @@
                 // simulate click
                 fileLink.click();
             } catch (error) {
-                console.error('There was a problem with the fetch operation:', error);
+                alert('There was a problem while converting to GPX: ' + error);
             }
         }
     </script>
