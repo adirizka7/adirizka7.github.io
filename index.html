@@ -42,15 +42,14 @@
                     body: urlEncoded
                 });
 
+                const resp = await response.json();
+
                 // Check if the response is OK (status 200-299)
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    throw new Error(resp.err_message);
                 }
 
-                // Parse the response as Blob
-                const blob = await response.blob();
-
-                let file = new Blob([blob], {type: 'application/gpx+xml'});
+                let file = new Blob([resp.content], {type: 'application/gpx+xml'});
                 let fileURL = URL.createObjectURL(file);
 
                 // create <a> element dynamically
@@ -58,7 +57,7 @@
                 fileLink.href = fileURL;
 
                 // suggest a name for the downloaded file
-                fileLink.download = 'from-there-to-here.gpx';
+                fileLink.download = resp.title + '.gpx';
 
                 // simulate click
                 fileLink.click();
