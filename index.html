@@ -101,10 +101,15 @@
                 let fileObject = new File([file], resp.title + '.gpx', {type: 'application/gpx+xml'});
 
                 if (navigator.share) {
-                    await navigator.share({
-                        title: resp.title,
-                        files: [fileObject]
-                    });
+                    try {
+                        await navigator.share({
+                            files: [fileObject]
+                        });
+                    } catch (error) {
+                        if (error.name !== 'AbortError') {
+                            console.error('Sharing failed', error);
+                        }
+                    }
                 } else {
                     alert('Sharing is not supported on this browser.');
                 }
